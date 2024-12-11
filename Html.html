@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        p {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        button {
+            width: 100%;
+            max-width: 300px;
+            padding: 8px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Containers */
+        div {
+            margin-bottom: 20px;
+        }
+
+        /* Lists */
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+
+        ul#lista-procese li {
+            padding: 5px 0;
+        }
+
+        /* Hero Entries */
+        .hero-entry {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .hero-entry input {
+            flex: 1;
+        }
+
+        .hero-entry button {
+            background-color: #e74c3c;
+            border: none;
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .hero-entry button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Result Sections */
+        #kingdomResults,
+        #resultContainer,
+        #detailedResultContainer,
+        #averageExecutionContainer,
+        #averageWaitContainer,
+        #resultSummary,
+        #detailedResult,
+        #averageTurnaroundTimeContainer,
+        #waitTimeCalculation,
+        #averageWaitTimeContainer,
+        #processList,
+        #result,
+        #lista-procese {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            input[type="text"],
+            input[type="number"],
+            button {
+                max-width: 100%;
+            }
+
+            .hero-entry {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-entry button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Algoritmul SJF (Shortest Job First)</h2>
+    <p>Introduceți numărul de procese:</p>
+    <input type="text" id="nrProcese" placeholder="Nr. procese">
+    <div id="inputsContainer"></div>
+    <button id="calculateButton">Calculează</button>
+
+    <h3 id="resultHeader" style="margin-top: 20px;"></h3>
+    <div id="resultContainer" style="margin-top: 10px;"></div>
+    <div id="detailedResultContainer" style="margin-top: 20px;"></div>
+    <div id="averageExecutionContainer" style="margin-top: 20px;"></div>
+    <div id="averageWaitContainer" style="margin-top: 20px;"></div>
+
+
+    <h2>Algoritmul SJF (Shortest Job First)</h2>
+    <p>Introduceți numărul de procese:</p>
+    <input type="text" id="processCountInput" placeholder="Nr. procese">
+    <div id="processInputsContainer"></div>
+    <button id="calculateBtn">Calculează</button>
+    <h3 id="resultTitle"></h3>
+    <div id="resultSummary"></div>
+    <div id="detailedResult"></div>
+    <div id="averageTurnaroundTimeContainer"></div>
+    <div id="waitTimeCalculation"></div>
+    <div id="averageWaitTimeContainer"></div>
+
+
+
+    <h1>Round Robin Magic Kingdom</h1>
+
+    <div>
+        <label for="magicWand">Magic Wand (K):</label><br>
+        <input type="number" id="magicWand" min="1" placeholder="Enter magic power" required>
+    </div>
+
+    <div>
+        <h3>Heroes:</h3>
+        <div id="heroList">
+            <div class="hero-entry">
+                <input type="text" class="hero-name" placeholder="Hero Name" required>
+                <input type="number" class="hero-power" min="1" placeholder="Power Level" required>
+                <button type="button" onclick="banishHero(this)">✖</button>
+            </div>
+        </div>
+        <button type="button" onclick="summonHero()">Summon Hero</button>
+    </div>
+
+    <div>
+        <button type="button" onclick="castMagicSpell()">Cast Spell</button>
+    </div>
+
+    <div id="kingdomResults" style="display: none;">
+        <h2>Legendary Outcomes:</h2>
+        <p><strong>Hero Quest Path:</strong> <span id="questPath"></span></p>
+        <p><strong>Average Magic Impact:</strong> <span id="magicImpact"></span></p>
+    </div>
+
+
+
+    <h1>Introdu datele proceselor</h1>
+
+    <label for="symbol">Symbol:</label>
+    <input type="text" id="symbol" placeholder="Exemplu: A">
+    <br><br>
+
+    <label for="ordine">Ordine:</label>
+    <input type="number" id="ordine" placeholder="Exemplu: 10">
+    <br><br>
+
+    <label for="val">Val:</label>
+    <input type="number" id="val" placeholder="Exemplu: 5">
+    <br><br>
+
+    <button onclick="adaugaProces()">Adaugă Proces</button>
+    <br><br>
+
+    <h2>Procesele introduse:</h2>
+    <ul id="lista-procese">
+        <!-- Lista proceselor va fi afisata aici -->
+    </ul>
+
+    <button onclick="calculeazaRezultat()">Calculează Rezultatul</button>
+    <br><br>
+
+    <h2>Rezultate:</h2>
+    <p><strong>Ordinea de realizare:</strong> <span id="ordine-realizare"></span></p>
+    <p><strong>Rezultatul calculului:</strong> <span id="rezultat-calcul"></span></p>
+
+
+
+    <h1>Round Robin Scheduler</h1>
+
+    <div>
+        <label for="processName">Simbol proces:</label>
+        <input type="text" id="processName" placeholder="Ex: A">
+    </div>
+    
+    <div>
+        <label for="processTime">Timp proces:</label>
+        <input type="number" id="processTime" placeholder="Ex: 4">
+    </div>
+    
+    <button id="addProcess">Adăugați proces</button>
+    
+    <div>
+        <label for="quantum">Introduceți cuanta de timp (quantum):</label>
+        <input type="number" id="quantum" placeholder="Ex: 8">
+    </div>
+    
+    <button id="submit">Calculați</button>
+
+    <div id="processList"></div>
+    <div id="result"></div>
+
+    <script src="1.js"></script>
+    <script src="2.js"></script>
+    <script src="3.js"></script>
+    <script src="4.js"></script>
+    <script src="5.js"></script>
+    <script src="6.js"></script>
+</body>
+</html>
